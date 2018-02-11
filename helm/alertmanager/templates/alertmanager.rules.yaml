@@ -29,4 +29,11 @@ groups:
     annotations:
       description: Reloading Alertmanager's configuration has failed for {{`{{ $labels.namespace
         }}`}}/{{`{{ $labels.pod}}`}}.
+  - alert: RabbitQueueBackingUp
+    expr: rabbitmq_queue_messages_ready > 2
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      description: Rabbit Queue has more than 2 messages ready for 1 min
 {{ end }}

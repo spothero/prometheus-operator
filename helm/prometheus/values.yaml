@@ -160,6 +160,9 @@ service:
   ##
   nodePort: 30900
 
+  ## Port Service Allows Access via
+  port: 80
+
   ## Service type
   ##
   type: ClusterIP

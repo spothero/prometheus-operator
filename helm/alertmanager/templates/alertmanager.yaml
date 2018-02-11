@@ -18,7 +18,7 @@ spec:
 {{- else if .Values.ingress.fqdn }}
   externalUrl: http://{{ .Values.ingress.fqdn }}{{ .Values.routePrefix }}
 {{- else }}
-  externalUrl: http://{{ template "alertmanager.fullname" . }}.{{ .Release.Namespace }}:9093
+  externalUrl: http://{{ template "alertmanager.fullname" . }}.{{ .Release.Namespace }}:80
 {{- end }}
 {{- if .Values.nodeSelector }}
   nodeSelector:
