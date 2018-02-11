@@ -17,17 +17,19 @@ alertmanager:
     global:
       resolve_timeout: 5m
     route:
-      group_by: ['job']
+      group_by: ['alertname', 'cluster', 'service']
       group_wait: 30s
       group_interval: 5m
-      repeat_interval: 12h
-      receiver: 'null'
+      receiver: DevOps
+      repeat_interval: 3h
       routes:
-      - match:
-          alertname: DeadMansSwitch
-        receiver: 'null'
+        - match:
+            alertname: RabbitQueueBackingUp
+          receiver: DevOps
     receivers:
-    - name: 'null'
+    - name: DevOps
+      pagerduty_configs:
+      - service_key: 371ecc0806d9443e911c9d71162d6163
 
   ## External URL at which Alertmanager will be reachable
   ##
