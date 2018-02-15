@@ -17,19 +17,28 @@ alertmanager:
     global:
       resolve_timeout: 5m
     route:
+      continue: false
       group_by: ['alertname', 'cluster', 'service']
       group_wait: 30s
       group_interval: 5m
-      receiver: DevOps
+      receiver: Default
       repeat_interval: 3h
       routes:
+        - match_re:
+            service: ^.+-rabbitmq-ha$
+          receiver: PagerDutyDevOps
         - match:
-            alertname: RabbitQueueBackingUp
-          receiver: DevOps
+            severity: critical
+          receiver: SlackDevOps
     receivers:
-    - name: DevOps
+    - name: Default
+    - name: SlackDevOps
+      slack_configs:
+      - api_url: https://hooks.slack.com/services/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
+        send_resolved: true
+    - name: PagerDutyDevOps
       pagerduty_configs:
-      - service_key: 371ecc0806d9443e911c9d71162d6163
+      - service_key: 32a3f3770e894439aaaf39cfe07b4555
 
   ## External URL at which Alertmanager will be reachable
   ##
