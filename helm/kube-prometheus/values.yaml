@@ -27,8 +27,8 @@ alertmanager:
         - match_re:
             service: ^.+-rabbitmq-ha$
           receiver: PagerDutyDevOps
-        - match:
-            severity: critical
+        - match_re:
+            severity: ^(warning|critical)$
           receiver: SlackDevOps
     receivers:
     - name: Default
@@ -38,7 +38,7 @@ alertmanager:
         send_resolved: true
     - name: PagerDutyDevOps
       pagerduty_configs:
-      - service_key: 32a3f3770e894439aaaf39cfe07b4555
+      - service_key: 608dca8fa90b4e36b317fd573d1ae88d
 
   ## External URL at which Alertmanager will be reachable
   ##

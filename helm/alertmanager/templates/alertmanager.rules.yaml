@@ -36,7 +36,9 @@ groups:
       rabbitmq_queue_messages_ready{queue="high-integrations"} > 2 OR
       rabbitmq_queue_messages_ready{queue="high-salesforce"} > 1000 OR
       rabbitmq_queue_messages_ready{queue="low-search-tracking-v2"} > 1000000 OR
-      rabbitmq_queue_messages_ready{queue="medium-default"} > 1000
+      rabbitmq_queue_messages_ready{queue="medium-default"} > 1000 OR
+      rabbitmq_queue_messages_ready{queue="tow_truck.facilities"} > 10 OR
+      rabbitmq_queue_messages_ready{queue="tow_truck.reservations"} > 10
     for: 5m
     labels:
       severity: critical
