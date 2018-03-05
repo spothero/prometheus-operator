@@ -28,6 +28,9 @@ alertmanager:
             service: ^.+-rabbitmq-ha$
           receiver: PagerDutyDevOps
         - match_re:
+            job: ^.+-redshift-rentals-up-to-date-.+$
+          receiver: PagerDutyDevOps
+        - match_re:
             severity: ^(warning|critical)$
           receiver: SlackDevOps
     receivers:
