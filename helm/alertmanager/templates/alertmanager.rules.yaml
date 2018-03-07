@@ -65,4 +65,11 @@ groups:
       severity: critical
     annotations:
       description: RabbitMQ Node has less than 5000 file descriptor available
+  - alert: RedshiftRentalsSyncIsBehind
+    expr: increase(kube_job_status_failed{job=~".+-redshift-rentals-up-to-date-.+"}[5m]) > 2
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      description: Redshift Rentals Table is more than 2 hrs behind, sync isn't working.  This check occurs every 5 mins.
 {{ end }}

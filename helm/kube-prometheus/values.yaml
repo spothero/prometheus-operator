@@ -29,7 +29,7 @@ alertmanager:
           receiver: PagerDutyDevOps
         - match_re:
             job: ^.+-redshift-rentals-up-to-date-.+$
-          receiver: PagerDutyDevOps
+          receiver: PagerDutyDataEngineering
         - match_re:
             severity: ^(warning|critical)$
           receiver: SlackDevOps
@@ -42,6 +42,9 @@ alertmanager:
     - name: PagerDutyDevOps
       pagerduty_configs:
       - service_key: 608dca8fa90b4e36b317fd573d1ae88d
+    - name: PagerDutyDataEngineering
+      pagerduty_configs:
+      - service_key: 64080c23abad464d867dfad282f69f18
 
   ## External URL at which Alertmanager will be reachable
   ##
