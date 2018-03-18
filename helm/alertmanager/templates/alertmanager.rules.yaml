@@ -29,47 +29,4 @@ groups:
     annotations:
       description: Reloading Alertmanager's configuration has failed for {{`{{ $labels.namespace
         }}`}}/{{`{{ $labels.pod}}`}}.
-  - alert: RabbitQueueBackingUp
-    expr: rabbitmq_queue_messages_ready{queue="high-cnp-aggregator"} > 10 OR
-      rabbitmq_queue_messages_ready{queue="high-cnp-worker"} > 10  OR
-      rabbitmq_queue_messages_ready{queue="high-integrations-aggregator"} > 2 OR
-      rabbitmq_queue_messages_ready{queue="high-integrations"} > 2 OR
-      rabbitmq_queue_messages_ready{queue="high-salesforce"} > 1000 OR
-      rabbitmq_queue_messages_ready{queue="low-search-tracking-v2"} > 1000000 OR
-      rabbitmq_queue_messages_ready{queue="medium-default"} > 1000 OR
-      rabbitmq_queue_messages_ready{queue="tow_truck.facilities"} > 10 OR
-      rabbitmq_queue_messages_ready{queue="tow_truck.reservations"} > 10
-    for: 5m
-    labels:
-      severity: critical
-    annotations:
-      description: Rabbit Queue has too many messages ready
-  - alert: RabbitClusterNodeDown
-    expr: rabbitmq_up == 0
-    for: 5m
-    labels:
-      severity: critical
-    annotations:
-      description: RabbitMQ Node is down
-  - alert: RabbitNodeHighMemoryUsage
-    expr: (rabbitmq_node_mem_limit - rabbitmq_node_mem_used )/ 1024^2 < 200
-    for: 1m
-    labels:
-      severity: critical
-    annotations:
-      description: RabbitMQ Node has less than 200MB of memory until it hits limit
-  - alert: RabbitNodeLowFileDescriptors
-    expr: rabbitmq_fd_total - rabbitmq_fd_used < 5000
-    for: 3m
-    labels:
-      severity: critical
-    annotations:
-      description: RabbitMQ Node has less than 5000 file descriptor available
-  - alert: RedshiftRentalsSyncIsBehind
-    expr: increase(kube_job_status_failed{job=~".+-redshift-rentals-up-to-date-.+"}[5m]) > 2
-    for: 1m
-    labels:
-      severity: critical
-    annotations:
-      description: Redshift Rentals Table is more than 2 hrs behind, sync isn't working.  This check occurs every 5 mins.
 {{ end }}

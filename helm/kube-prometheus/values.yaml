@@ -17,34 +17,17 @@ alertmanager:
     global:
       resolve_timeout: 5m
     route:
-      continue: false
-      group_by: ['alertname', 'cluster', 'service']
+      group_by: ['job']
       group_wait: 30s
       group_interval: 5m
-      receiver: Default
-      repeat_interval: 3h
+      repeat_interval: 12h
+      receiver: 'null'
       routes:
-        - match_re:
-            service: ^.+-rabbitmq-ha$
-          receiver: PagerDutyDevOps
-        - match_re:
-            job: ^.+-redshift-rentals-up-to-date-.+$
-          receiver: PagerDutyDataEngineering
-        - match_re:
-            severity: ^(warning|critical)$
-          receiver: SlackDevOps
+      - match:
+          alertname: DeadMansSwitch
+        receiver: 'null'
     receivers:
-    - name: Default
-    - name: SlackDevOps
-      slack_configs:
-      - api_url: https://hooks.slack.com/services/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
-        send_resolved: true
-    - name: PagerDutyDevOps
-      pagerduty_configs:
-      - service_key: 608dca8fa90b4e36b317fd573d1ae88d
-    - name: PagerDutyDataEngineering
-      pagerduty_configs:
-      - service_key: 64080c23abad464d867dfad282f69f18
+    - name: 'null'
 
   ## External URL at which Alertmanager will be reachable
   ##

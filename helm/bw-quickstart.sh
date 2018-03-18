@@ -10,7 +10,7 @@ helm init --service-account tiller
 
 # local repo
 helm install prometheus-operator --name prometheus-operator --namespace monitoring -f ~/charts/environments/staging/monitoring/kube-prometheus.yaml
-helm install kube-prometheus --name kube-prometheus --set rbacEnable=true --namespace monitoring  -f ~/charts/environments/staging/monitoring/kube-prometheus.yaml
+helm install kube-prometheus --name kube-prometheus --namespace monitoring  -f ~/charts/environments/staging/monitoring/kube-prometheus.yaml
 
 # public rep
 helm repo add coreos https://s3-eu-west-1.amazonaws.com/coreos-charts/stable/
@@ -24,4 +24,4 @@ kc port-forward prometheus-kube-prometheus-0 9090:9090 -n monitoring &
 kc port-forward alertmanager-kube-prometheus-0 9093:9093 -n monitoring &
 
 helm install prometheus-operator --name prometheus-operator --namespace monitoring -f ~/charts/environments/production/monitoring/kube-prometheus.yaml
-helm install kube-prometheus --name kube-prometheus --set rbacEnable=true --namespace monitoring -f ~/charts/environments/production/monitoring/kube-prometheus.yaml
+helm install kube-prometheus --name kube-prometheus --namespace monitoring -f ~/charts/environments/production/monitoring/kube-prometheus.yaml
