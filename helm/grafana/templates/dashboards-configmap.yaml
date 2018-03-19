@@ -22,6 +22,6 @@ data:
       "basicAuth": false,
       "name": "prometheus",
       "type": "prometheus",
-      "url": "http://{{ printf "%s-%s" .Release.Name "prometheus" }}:80"
+      "url": "http://{{ printf "%s-%s" .Release.Name "prometheus" }}:9090"
     }
   {{- end }}
