@@ -138,9 +138,6 @@ service:
   ##
   nodePort: 30903
 
-  ## Port Service Allows Access via
-  port: 80
-
   ## Service type
   ##
   type: ClusterIP
